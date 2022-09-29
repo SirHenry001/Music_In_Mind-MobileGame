@@ -33,7 +33,7 @@ public class EnemySpawn : MonoBehaviour
             enemies.Add(temp);
         }
 
-        InvokeRepeating(nameof(SpawnRepeat), 3f, 0.2f);
+        InvokeRepeating(nameof(SpawnRepeat), 3f, 0.5f);
     }
 
     public void SpawnRepeat()

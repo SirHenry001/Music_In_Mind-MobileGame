@@ -1,45 +1,66 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class CollisionScript : MonoBehaviour
 {
-    //TIMER THAT DETERMINE PLAYER SCORE
-    public float timer;
+    //CURREN SCORE THAT DETERMINE PLAYER SCORE
+    public int score;
 
-    public float rewardTime1, rewardTime2, rewardTime3;
+    //SCORES THAT TELL THE LIMIT FOR STARS APPEAR
+    public int rewardScore1, rewardScore2, rewardScore3;
 
+    //INTEGERS TO COMPARE RECORD/COLLECTED STARS
     public int starsGained;
     static int starsRecord; 
 
+    //BOOLEAN TO CHECK IF GAME IS OVER
     public bool gameOver = false;
 
+    //VARIABLES FOR UI TO POP UP ON DIFFERENT FUNCTIONS
     public GameObject levelPopUp;
     public GameObject[] stars;
     public int nextLevel;
 
+    public Image noteMeter;
+    public float meterValue;
+    public float timer;
+    public float intervalTime = 1f;
+
+    //ACCESS TO OTHER SCRIPTS
     public GameManager gameManager;
 
     private void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
     }
 
     private void Update()
     {
-        if(!gameOver)
+        timer += Time.deltaTime;
+
+        if (timer > intervalTime)
         {
-            timer += Time.deltaTime;
+            NoteMeter();
+            timer = 0;
+        }
+
+        if(meterValue <= 0)
+        {
+            levelPopUp.SetActive(true);
+            gameOver = true;
         }
 
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //ENEMY TAG RELATED COLLISIONS
         if (collision.gameObject.tag == "Enemy" && !gameOver)
         {
-            print("osuma");
             levelPopUp.SetActive(true);
             gameOver = true;
             
@@ -48,17 +69,17 @@ public class CollisionScript : MonoBehaviour
                 stars[i].SetActive(false);
             }
 
-            if (timer >= rewardTime1)
+            if (score >= rewardScore1)
             {
                 starsGained = 1;
             }
 
-            if (timer >= rewardTime2)
+            if (score >= rewardScore2)
             {
                 starsGained = 2;
             }
 
-            if (timer >= rewardTime3)
+            if (score >= rewardScore3)
             {
                 starsGained = 3;
             }
@@ -100,5 +121,22 @@ public class CollisionScript : MonoBehaviour
     public void ToMenu()
     {
         SceneManager.LoadScene("MenuScreen");
+    }
+
+    public void NoteMeter()
+    {
+        meterValue -= 10;
+        noteMeter.fillAmount = meterValue * 0.01f;
+    }
+
+    public void AddTime(float value)
+    {
+        meterValue += value;
+        noteMeter.fillAmount = meterValue * 0.01f;
+    }
+
+    public void Score1()
+    {
+        score += 100;
     }
 }

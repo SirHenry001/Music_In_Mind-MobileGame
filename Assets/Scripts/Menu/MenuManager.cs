@@ -10,10 +10,16 @@ public class MenuManager : MonoBehaviour
     //VARIABLES FOR POP UP SCREENS
     public GameObject levelPopUp;
     public GameObject optionsPopUp;
+    public GameObject aboutPopUp;
     public GameObject levelList;
 
     public GameObject playButton;
+    public GameObject aboutButton;
+    public GameObject settingsButton;
+    public GameObject howToPlayButton;
     public GameObject quitButton;
+    public GameObject logoImage;
+    public GameObject logoMenuImage;
     public GameObject fadeImage;
 
     //VARIABLES FOR STAR IMAGES DISPLAYED ON LEVEL BUTTONS ON LEVEL SCREEN
@@ -66,6 +72,18 @@ public class MenuManager : MonoBehaviour
         levelPopUp.GetComponent<Animator>().SetBool("Disappear", true);
     }
 
+    public void OpenAbout()
+    {
+        aboutPopUp.SetActive(true);
+        aboutPopUp.GetComponent<Animator>().SetBool("Appear", true);
+    }
+
+    public void CloseAbout()
+    {
+        aboutPopUp.GetComponent<Animator>().SetBool("Appear", false);
+        aboutPopUp.GetComponent<Animator>().SetBool("Disappear", true);
+    }
+
     public void OpenOptions()
     {
         optionsPopUp.SetActive(true);
@@ -96,7 +114,13 @@ public class MenuManager : MonoBehaviour
         buttonEffects.Play();
         playButtonSource.PlayOneShot(playClip);
         yield return new WaitForSeconds(0.5f);
+        logoMenuImage.SetActive(true);
+        logoImage.SetActive(false);
         levelList.SetActive(true);
+        quitButton.SetActive(true);
+        aboutButton.SetActive(true);
+        settingsButton.SetActive(true);
+        howToPlayButton.SetActive(true);
         playButton.SetActive(false);
 
         for(int i=0; i < gameManager.level1Stars; i++)
