@@ -39,8 +39,4 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void Test()
-    {
-        print("GameManager");
-    }
 }

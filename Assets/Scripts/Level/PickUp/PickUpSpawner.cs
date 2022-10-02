@@ -41,8 +41,8 @@ public class PickUpSpawner : MonoBehaviour
 
         if (localPickUp != null)
         {
-            localPickUp.transform.position = (spawner[Random.Range(0, 3)].transform.position);
-            localPickUp.transform.rotation = (spawner[Random.Range(0, 3)].transform.rotation);
+            localPickUp.transform.position = (spawner[Random.Range(0, 4)].transform.position);
+            localPickUp.transform.rotation = (spawner[Random.Range(0, 4)].transform.rotation);
             localPickUp.SetActive(true);
         }
     }

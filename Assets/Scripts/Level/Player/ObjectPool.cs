@@ -51,7 +51,6 @@ public class ObjectPool : MonoBehaviour
 
     public void Fire()
     {
-        GameManager.gameManager.Test();
 
         GameObject bullet = ObjectPool.SharedInstance.GetPooledObject();
         if (bullet != null)

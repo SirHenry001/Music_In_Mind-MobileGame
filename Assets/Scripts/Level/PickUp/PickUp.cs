@@ -13,7 +13,7 @@ public class PickUp : MonoBehaviour
 
         {
             collisionScript.Score1();
-            collisionScript.AddTime(10);
+            collisionScript.AddTime(100);
             gameObject.SetActive(false);
         }
     }

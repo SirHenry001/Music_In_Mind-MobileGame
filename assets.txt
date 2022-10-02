@@ -1,0 +1,15 @@
+fonts used:
+
+LOGO:
+dafont.com
+benny_blanco
+e-mail: kolyris@hotmail.com
+
+Button:
+Ape-mount
+dafont.com
+
+ASSETS:
+
+music pack
+Bard's Tales - Peaceful Harp Music Pack (Unity Asset Store)

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -14,7 +15,11 @@ public class CollisionScript : MonoBehaviour
 
     //INTEGERS TO COMPARE RECORD/COLLECTED STARS
     public int starsGained;
-    static int starsRecord; 
+    static int starsRecord;
+
+    //TouchAim gameobject
+    public Transform touch;
+ 
 
     //BOOLEAN TO CHECK IF GAME IS OVER
     public bool gameOver = false;
@@ -25,9 +30,13 @@ public class CollisionScript : MonoBehaviour
     public int nextLevel;
 
     public Image noteMeter;
+    public GameObject scoreText;
+    public GameObject scoreMenuText;
+    public GameObject timeOutText;
     public float meterValue;
     public float timer;
-    public float intervalTime = 1f;
+    public int difficultLevel;
+    public float intervalTime;
 
     //ACCESS TO OTHER SCRIPTS
     public GameManager gameManager;
@@ -35,23 +44,48 @@ public class CollisionScript : MonoBehaviour
     private void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        touch = GameObject.Find("HeroAim").transform;
 
     }
 
     private void Update()
     {
+        //show schore on the screen
+        scoreText.GetComponent<TextMeshProUGUI>().text = score.ToString();
+        scoreMenuText.GetComponent<TextMeshProUGUI>().text = score.ToString();
+
         timer += Time.deltaTime;
 
-        if (timer > intervalTime)
+        if(timer >= intervalTime)
         {
-            NoteMeter();
+            difficultLevel += 1;
             timer = 0;
         }
 
-        if(meterValue <= 0)
+        if (meterValue >= 1000)
+        {
+            meterValue = 1000;
+        }
+
+        if (meterValue <= 0)
         {
             levelPopUp.SetActive(true);
+            timeOutText.SetActive(true);
             gameOver = true;
+        }
+
+        if (gameOver)
+        {
+            touch.GetComponent<CircleCollider2D>().enabled = false;
+        }
+
+    }
+
+    private void FixedUpdate()
+    {
+        if(!gameOver)
+        {
+            NoteMeter(1);
         }
 
     }
@@ -123,16 +157,16 @@ public class CollisionScript : MonoBehaviour
         SceneManager.LoadScene("MenuScreen");
     }
 
-    public void NoteMeter()
+    public void NoteMeter(float value)
     {
-        meterValue -= 10;
-        noteMeter.fillAmount = meterValue * 0.01f;
+        meterValue -= value;
+        noteMeter.fillAmount = meterValue * 0.001f;
     }
 
     public void AddTime(float value)
     {
         meterValue += value;
-        noteMeter.fillAmount = meterValue * 0.01f;
+        noteMeter.fillAmount = meterValue * 0.001f;
     }
 
     public void Score1()
