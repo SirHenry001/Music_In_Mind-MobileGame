@@ -15,6 +15,9 @@ public class EnemySpawn : MonoBehaviour
     //m‰‰r‰ on montako vihollisia on peliss‰, hallinoidaan unityss‰
     public int enemiesOnGame;
 
+    //access to player collider script where the difficult level changes
+    public CollisionScript collisionScript;
+
     private void Awake()
     {
         SharedInstance = this;
@@ -33,24 +36,77 @@ public class EnemySpawn : MonoBehaviour
             enemies.Add(temp);
         }
 
-        InvokeRepeating(nameof(SpawnRepeat), 3f, 0.5f);
+        InvokeRepeating(nameof(SpawnRepeat), 2f, 0.8f);
     }
 
     public void SpawnRepeat()
     {
-
-        GameObject localEnemy = EnemySpawn.SharedInstance.GetPooledObject();
-
-        if (localEnemy != null)
+        if(collisionScript.difficultLevel == 1)
         {
-            localEnemy.transform.position = (spawner[Random.Range(0, 5)].transform.position);
-            localEnemy.transform.rotation = (spawner[Random.Range(0, 5)].transform.rotation);
-            localEnemy.SetActive(true);
+            GameObject localEnemy = GetPooledObject();
+
+            if (localEnemy != null)
+            {
+                localEnemy.transform.position = (spawner[Random.Range(0, 1)].transform.position);
+                localEnemy.transform.rotation = (spawner[Random.Range(0, 1)].transform.rotation);
+                localEnemy.SetActive(true);
+            }
         }
+
+        if (collisionScript.difficultLevel == 2)
+        {
+            GameObject localEnemy = GetPooledObject();
+
+            if (localEnemy != null)
+            {
+                localEnemy.transform.position = (spawner[Random.Range(0, 2)].transform.position);
+                localEnemy.transform.rotation = (spawner[Random.Range(0, 2)].transform.rotation);
+                localEnemy.SetActive(true);
+            }
+        }
+
+        if (collisionScript.difficultLevel == 3)
+        {
+            GameObject localEnemy = GetPooledObject();
+
+            if (localEnemy != null)
+            {
+                localEnemy.transform.position = (spawner[Random.Range(0, 4)].transform.position);
+                localEnemy.transform.rotation = (spawner[Random.Range(0, 4)].transform.rotation);
+                localEnemy.SetActive(true);
+            }
+        }
+
+        if (collisionScript.difficultLevel == 4)
+        {
+            GameObject localEnemy = GetPooledObject();
+
+            if (localEnemy != null)
+            {
+                localEnemy.transform.position = (spawner[Random.Range(0, 6)].transform.position);
+                localEnemy.transform.rotation = (spawner[Random.Range(0, 6)].transform.rotation);
+                localEnemy.SetActive(true);
+            }
+        }
+
+        if (collisionScript.difficultLevel == 5)
+        {
+            GameObject localEnemy = GetPooledObject();
+
+            if (localEnemy != null)
+            {
+                localEnemy.transform.position = (spawner[Random.Range(0, 8)].transform.position);
+                localEnemy.transform.rotation = (spawner[Random.Range(0, 8)].transform.rotation);
+                localEnemy.SetActive(true);
+            }
+        }
+
+
     }
 
     public GameObject GetPooledObject()
     {
+
         for (int i = 0; i < enemiesOnGame; i++)
         {
             if (!enemies[i].activeInHierarchy)

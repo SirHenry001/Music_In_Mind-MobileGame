@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
@@ -9,8 +10,11 @@ public class MenuManager : MonoBehaviour
     //public GameObject audioManager;
     //VARIABLES FOR POP UP SCREENS
     public GameObject levelPopUp;
+    public TextMeshProUGUI levelText;
     public GameObject optionsPopUp;
     public GameObject aboutPopUp;
+    public GameObject infoPopUp;
+    public GameObject quitPopUp;
     public GameObject levelList;
 
     public GameObject playButton;
@@ -25,6 +29,8 @@ public class MenuManager : MonoBehaviour
     //VARIABLES FOR STAR IMAGES DISPLAYED ON LEVEL BUTTONS ON LEVEL SCREEN
     public GameObject[] level1StarsImages;
     public GameObject[] level2StarsImages;
+    public GameObject[] level3StarsImages;
+    public TextMeshProUGUI[] highScoreText;
 
     public ParticleSystem buttonEffects;
     public Animator myAnimator;
@@ -45,8 +51,6 @@ public class MenuManager : MonoBehaviour
     {
         levelPopUp.SetActive(false);
         fadeImage.SetActive(true);
-        //audioManager = GameObject.Find("AudioManager");
-        //myAudio = audioManager.GetComponent<AudioSource>();
 
         myAnimator = GameObject.Find("FadeOut").GetComponent<Animator>();
         myAudio = GetComponent<AudioSource>();
@@ -64,6 +68,7 @@ public class MenuManager : MonoBehaviour
 
         levelPopUp.SetActive(true);
         nextLevel = level;
+        levelText.text = "Go To Level" + level.ToString();
     }
 
     public void LevelScreenClose()
@@ -94,6 +99,30 @@ public class MenuManager : MonoBehaviour
     {
         optionsPopUp.GetComponent<Animator>().SetBool("Appear", false);
         optionsPopUp.GetComponent<Animator>().SetBool("Disappear", true);
+    }
+
+    public void OpenInfo()
+    {
+        infoPopUp.SetActive(true);
+        infoPopUp.GetComponent<Animator>().SetBool("Appear", true);
+    }
+
+    public void CloseInfo()
+    {
+        infoPopUp.GetComponent<Animator>().SetBool("Appear", false);
+        infoPopUp.GetComponent<Animator>().SetBool("Disappear", true);
+    }
+
+    public void OpenQuit()
+    {
+        quitPopUp.SetActive(true);
+        quitPopUp.GetComponent<Animator>().SetBool("Appear", true);
+    }
+
+    public void CloseQuit()
+    {
+        quitPopUp.GetComponent<Animator>().SetBool("Appear", false);
+        quitPopUp.GetComponent<Animator>().SetBool("Disappear", true);
     }
 
     public void OpenLevel()

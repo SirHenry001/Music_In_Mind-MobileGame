@@ -19,10 +19,12 @@ public class CollisionScript : MonoBehaviour
 
     //TouchAim gameobject
     public Transform touch;
- 
 
     //BOOLEAN TO CHECK IF GAME IS OVER
     public bool gameOver = false;
+
+    //GAMEOBJECT TO PICKUPMAX
+    public GameObject pickUpMax;
 
     //VARIABLES FOR UI TO POP UP ON DIFFERENT FUNCTIONS
     public GameObject levelPopUp;
@@ -38,6 +40,8 @@ public class CollisionScript : MonoBehaviour
     public int difficultLevel;
     public float intervalTime;
 
+    public string levelName;
+
     //ACCESS TO OTHER SCRIPTS
     public GameManager gameManager;
 
@@ -45,7 +49,6 @@ public class CollisionScript : MonoBehaviour
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         touch = GameObject.Find("HeroAim").transform;
-
     }
 
     private void Update()
@@ -54,12 +57,19 @@ public class CollisionScript : MonoBehaviour
         scoreText.GetComponent<TextMeshProUGUI>().text = score.ToString();
         scoreMenuText.GetComponent<TextMeshProUGUI>().text = score.ToString();
 
-        timer += Time.deltaTime;
+        PlayerPrefs.SetInt("HiScoreText1", score);
+        PlayerPrefs.Save();
 
-        if(timer >= intervalTime)
+        if(difficultLevel < 5)
         {
-            difficultLevel += 1;
-            timer = 0;
+            timer += Time.deltaTime;
+
+            if (timer >= intervalTime)
+            {
+                difficultLevel += 1;
+                pickUpMax.SetActive(true);
+                timer = 0;
+            }
         }
 
         if (meterValue >= 1000)
@@ -121,10 +131,10 @@ public class CollisionScript : MonoBehaviour
             if(starsGained > starsRecord)
             {
                 starsRecord = starsGained;
+                PlayerPrefs.SetInt(levelName, starsRecord);
             }
 
             gameManager.level1Stars = starsRecord;
-
             StartCoroutine(StarAppear());
 
         }
@@ -169,8 +179,8 @@ public class CollisionScript : MonoBehaviour
         noteMeter.fillAmount = meterValue * 0.001f;
     }
 
-    public void Score1()
+    public void Score(int value)
     {
-        score += 100;
+        score += value;
     }
 }

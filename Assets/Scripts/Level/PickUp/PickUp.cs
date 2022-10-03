@@ -12,8 +12,8 @@ public class PickUp : MonoBehaviour
         if(collision.gameObject.tag == "Player")
 
         {
-            collisionScript.Score1();
-            collisionScript.AddTime(100);
+            collisionScript.Score(100);
+            collisionScript.AddTime(50);
             gameObject.SetActive(false);
         }
     }
