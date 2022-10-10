@@ -136,8 +136,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e44eea88b32dd4e41b6bec86e3b9bf71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  audioManager: {fileID: 0}
+  musicManager: {fileID: 0}
+  speed: 6
   hittedSpeed: 0
+  effectParticles: {fileID: 1069978484846473130, guid: 062bf69de5e3a164cb587ec4d937f722, type: 3}
   target: {fileID: 0}
   myRigidbody: {fileID: 0}
   isHitted: 0

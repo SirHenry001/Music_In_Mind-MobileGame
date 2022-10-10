@@ -5,8 +5,13 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
 
+    public AudioManager audioManager;
+    public MusicManager musicManager;
+
     public float speed;
     public float hittedSpeed;
+
+    public GameObject effectParticles;
 
     public Transform target;
     public Rigidbody2D myRigidbody;
@@ -19,6 +24,8 @@ public class Enemy : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
+            Instantiate(effectParticles, transform.position, transform.rotation);
+            audioManager.PlayAudio(2);
             isHitted = true;
         }
     }
@@ -26,8 +33,12 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        musicManager = GameObject.Find("MusicPlayer").GetComponent<MusicManager>();
         target = GameObject.Find("HeroCharacter").transform;
         myRigidbody = GetComponent<Rigidbody2D>();
+
+
     }
 
     // Update is called once per frame

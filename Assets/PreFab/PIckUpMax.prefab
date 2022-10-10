@@ -138,6 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collisionScript: {fileID: 0}
+  effectParticles: {fileID: 1069978484846473130, guid: 8f0172f9bb974c44daea5ea44f0e0da6, type: 3}
 --- !u!95 &130826603
 Animator:
   serializedVersion: 4

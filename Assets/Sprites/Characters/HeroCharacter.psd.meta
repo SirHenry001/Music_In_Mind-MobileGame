@@ -144,10 +144,10 @@ TextureImporter:
       name: HeroCharacter_0
       rect:
         serializedVersion: 2
-        x: 560
-        y: 780
-        width: 702
-        height: 925
+        x: 21
+        y: 0
+        width: 2027
+        height: 2048
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

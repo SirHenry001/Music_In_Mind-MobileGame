@@ -1,15 +1,32 @@
-fonts used:
-
-LOGO:
+FONTS:
+---------
+Logo:
 dafont.com
 benny_blanco
 e-mail: kolyris@hotmail.com
 
-Button:
+UI Text:
+dafont.com
+Strande2 SDF
+
+Buttons:
 Ape-mount
 dafont.com
 
 ASSETS:
-
+----------
 music pack
+menu:
 Bard's Tales - Peaceful Harp Music Pack (Unity Asset Store)
+level 1:
+
+Level 2:
+Casual Game Music: Happy,Bouncy, Social Music Pack (Unity Asset Store)
+level 3:
+Cyber Metal music pack ( nunity asset store)
+
+GAMESOUNDS:
+
+GameEnd:
+www.freesound.org
+Cue Scratch.WAW by Racche

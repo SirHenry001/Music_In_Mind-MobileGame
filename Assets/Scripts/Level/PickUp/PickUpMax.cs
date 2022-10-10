@@ -6,6 +6,9 @@ public class PickUpMax : MonoBehaviour
 {
 
     public CollisionScript collisionScript;
+    public AudioManager audioManager;
+
+    public GameObject effectParticles;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -15,6 +18,8 @@ public class PickUpMax : MonoBehaviour
             collisionScript.Score(200);
             collisionScript.AddTime(100);
             gameObject.SetActive(false);
+            Instantiate(effectParticles, transform.position, transform.rotation);
+            audioManager.PlayAudio(1);
         }
     }
 
@@ -22,6 +27,7 @@ public class PickUpMax : MonoBehaviour
     void Start()
     {
         collisionScript = GameObject.Find("HeroCharacter").GetComponent<CollisionScript>();
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
     }
 
     // Update is called once per frame

@@ -18,10 +18,6 @@ public class GameManager : MonoBehaviour
     public int level2Score;
     public int level3Score;
 
-    public TextMeshProUGUI hiScoreText1;
-    public TextMeshProUGUI hiScoreText2;
-    public TextMeshProUGUI hiScoreText3;
-    public int hiScore1;
 
 
     // Start is called before the first frame update
@@ -49,7 +45,9 @@ public class GameManager : MonoBehaviour
         level1Score = PlayerPrefs.GetInt("levelScore1");
         level2Score = PlayerPrefs.GetInt("levelScore2");
         level3Score = PlayerPrefs.GetInt("levelScore3");
-        
+
+
+
     }
 
     // Update is called once per frame

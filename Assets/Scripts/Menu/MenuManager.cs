@@ -17,6 +17,10 @@ public class MenuManager : MonoBehaviour
     public GameObject quitPopUp;
     public GameObject levelList;
 
+    public TextMeshProUGUI hiScoreText1;
+    public TextMeshProUGUI hiScoreText2;
+    public TextMeshProUGUI hiScoreText3;
+
     public GameObject playButton;
     public GameObject aboutButton;
     public GameObject settingsButton;
@@ -30,7 +34,6 @@ public class MenuManager : MonoBehaviour
     public GameObject[] level1StarsImages;
     public GameObject[] level2StarsImages;
     public GameObject[] level3StarsImages;
-    public TextMeshProUGUI[] highScoreText;
 
     public ParticleSystem buttonEffects;
     public Animator myAnimator;
@@ -41,6 +44,10 @@ public class MenuManager : MonoBehaviour
     public AudioClip startClip;
     public AudioClip cancelClip;
 
+        public int level1Score;
+    public int level2Score;
+    public int level3Score;
+
     public GameManager gameManager;
 
     public int nextLevel;
@@ -49,6 +56,11 @@ public class MenuManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        level1Score = PlayerPrefs.GetInt("levelScore1");
+        level2Score = PlayerPrefs.GetInt("levelScore2");
+        level3Score = PlayerPrefs.GetInt("levelScore3");
+
         levelPopUp.SetActive(false);
         fadeImage.SetActive(true);
 
@@ -69,6 +81,21 @@ public class MenuManager : MonoBehaviour
         levelPopUp.SetActive(true);
         nextLevel = level;
         levelText.text = "Go To Level" + level.ToString();
+
+        if(level == 1 )
+        {
+            hiScoreText1.GetComponent<TextMeshProUGUI>().text = "High Score" + level1Score.ToString();
+        }
+
+        if (level == 2)
+        {
+            hiScoreText2.GetComponent<TextMeshProUGUI>().text = "High Score" + level2Score.ToString();
+        }
+
+        if (level == 3)
+        {
+            hiScoreText3.GetComponent<TextMeshProUGUI>().text = "High Score" + level3Score.ToString();
+        }
     }
 
     public void LevelScreenClose()
@@ -85,6 +112,7 @@ public class MenuManager : MonoBehaviour
 
     public void CloseAbout()
     {
+        myAudio.PlayOneShot(cancelClip);
         aboutPopUp.GetComponent<Animator>().SetBool("Appear", false);
         aboutPopUp.GetComponent<Animator>().SetBool("Disappear", true);
     }
@@ -97,6 +125,7 @@ public class MenuManager : MonoBehaviour
 
     public void CloseOptions()
     {
+        myAudio.PlayOneShot(cancelClip);
         optionsPopUp.GetComponent<Animator>().SetBool("Appear", false);
         optionsPopUp.GetComponent<Animator>().SetBool("Disappear", true);
     }
@@ -109,6 +138,7 @@ public class MenuManager : MonoBehaviour
 
     public void CloseInfo()
     {
+        myAudio.PlayOneShot(cancelClip);
         infoPopUp.GetComponent<Animator>().SetBool("Appear", false);
         infoPopUp.GetComponent<Animator>().SetBool("Disappear", true);
     }
@@ -132,6 +162,16 @@ public class MenuManager : MonoBehaviour
         
     }
 
+    public void OpenLevel2()
+    {
+        SceneManager.LoadScene("Level2");
+    }
+
+    public void OpenLevel3()
+    {
+        SceneManager.LoadScene("Level3");
+    }
+
     public void QuitGame()
     {
         Application.Quit();
@@ -152,9 +192,19 @@ public class MenuManager : MonoBehaviour
         howToPlayButton.SetActive(true);
         playButton.SetActive(false);
 
-        for(int i=0; i < gameManager.level1Stars; i++)
+        for(int i = 0; i < gameManager.level1Stars; i++)
         {
             level1StarsImages[i].SetActive(true);
+        }
+
+        for (int i = 0; i < gameManager.level2Stars; i++)
+        {
+            level2StarsImages[i].SetActive(true);
+        }
+
+        for (int i = 0; i < gameManager.level3Stars; i++)
+        {
+            level3StarsImages[i].SetActive(true);
         }
     }
 
@@ -165,4 +215,5 @@ public class MenuManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(nextLevel);
     }
+
 }

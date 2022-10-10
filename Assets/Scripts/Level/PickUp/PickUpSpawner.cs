@@ -8,10 +8,13 @@ public class PickUpSpawner : MonoBehaviour
 
     //lista pickupia unityyn
     public List<GameObject> enemies;
+
     //peliobjecti unityss‰ mit‰ laitellaan listaan
     public GameObject pickup;
+
     //m‰‰r‰ on montako pickupia on peliss‰, hallinoidaan unityss‰
     public int pickupsOnGame;
+
 
     private void Awake()
     {
@@ -56,6 +59,10 @@ public class PickUpSpawner : MonoBehaviour
                 return enemies[i];
             }
         }
+
         return null;
+
+
+
     }
 }

@@ -7,8 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class CollisionScript : MonoBehaviour
 {
-    //CURREN SCORE THAT DETERMINE PLAYER SCORE
+    //CURRENT SCORE THAT DETERMINE PLAYER SCORE
     public int score;
+    static int scoreRecord;
 
     //SCORES THAT TELL THE LIMIT FOR STARS APPEAR
     public int rewardScore1, rewardScore2, rewardScore3;
@@ -16,6 +17,7 @@ public class CollisionScript : MonoBehaviour
     //INTEGERS TO COMPARE RECORD/COLLECTED STARS
     public int starsGained;
     static int starsRecord;
+
 
     //TouchAim gameobject
     public Transform touch;
@@ -41,13 +43,18 @@ public class CollisionScript : MonoBehaviour
     public float intervalTime;
 
     public string levelName;
+    public string scoreName;
 
     //ACCESS TO OTHER SCRIPTS
     public GameManager gameManager;
+    public AudioManager audioManager;
+    public MusicManager musicManager;
 
     private void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        musicManager = GameObject.Find("MusicPlayer").GetComponent<MusicManager>();
         touch = GameObject.Find("HeroAim").transform;
     }
 
@@ -57,19 +64,25 @@ public class CollisionScript : MonoBehaviour
         scoreText.GetComponent<TextMeshProUGUI>().text = score.ToString();
         scoreMenuText.GetComponent<TextMeshProUGUI>().text = score.ToString();
 
+
+
+        /*
         PlayerPrefs.SetInt("HiScoreText1", score);
         PlayerPrefs.Save();
+        */
 
-        if(difficultLevel < 5)
+        if (difficultLevel > 5)
         {
-            timer += Time.deltaTime;
+            difficultLevel = 5;
+        }
 
-            if (timer >= intervalTime)
-            {
-                difficultLevel += 1;
-                pickUpMax.SetActive(true);
-                timer = 0;
-            }
+        timer += Time.deltaTime;
+
+        if (timer >= intervalTime)
+        {
+            difficultLevel += 1;
+            pickUpMax.SetActive(true);
+            timer = 0;
         }
 
         if (meterValue >= 1000)
@@ -81,6 +94,7 @@ public class CollisionScript : MonoBehaviour
         {
             levelPopUp.SetActive(true);
             timeOutText.SetActive(true);
+            
             gameOver = true;
         }
 
@@ -106,6 +120,9 @@ public class CollisionScript : MonoBehaviour
         if (collision.gameObject.tag == "Enemy" && !gameOver)
         {
             levelPopUp.SetActive(true);
+            audioManager.PlayAudio(3);
+            musicManager.StopMusic();
+
             gameOver = true;
             
             for(int i = 0; i < stars.Length; i++)
@@ -134,7 +151,21 @@ public class CollisionScript : MonoBehaviour
                 PlayerPrefs.SetInt(levelName, starsRecord);
             }
 
+            if (score > scoreRecord)
+            {
+                scoreRecord = score;
+                PlayerPrefs.SetInt(scoreName, scoreRecord);
+            }
+
             gameManager.level1Stars = starsRecord;
+            gameManager.level2Stars = starsRecord;
+            gameManager.level3Stars = starsRecord;
+
+            gameManager.level1Score = scoreRecord;
+            gameManager.level2Score = scoreRecord;
+            gameManager.level3Score = scoreRecord;
+
+
             StartCoroutine(StarAppear());
 
         }
