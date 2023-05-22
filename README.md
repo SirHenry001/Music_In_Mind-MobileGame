@@ -1,2 +1,2 @@
-# 2DMobileGame
-Mobile game for android
+# Music In Mind - 2DMobileGame
+Mobile game Protype for android
